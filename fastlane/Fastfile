@@ -5,7 +5,10 @@ default_platform(:android)
 
 platform :android do
   before_all do |lane, options|
-    gradle_version()
+    # gradle_version()
+    gradle(
+      task: "-v"
+    )
   end
 
   before_each do |lane, options|
@@ -21,7 +24,7 @@ platform :android do
   lane :do_publish_beta do |options|
     # git_pull
     gradle(
-    task: "clean"
+      task: "clean"
     )
     gradle(
     task: "assemble",

@@ -1,10 +1,10 @@
 module Fastlane
   module Actions
     module SharedValues
-      UPLOAD_APP_TO_FIR_CUSTOM_VALUE = :UPLOAD_APP_TO_FIR_CUSTOM_VALUE
+      UPLOAD_APK_TO_FIR_CUSTOM_VALUE = :UPLOAD_APK_TO_FIR_CUSTOM_VALUE
     end
 
-    class UploadAppToFirAction < Action
+    class UploadApkToFirAction < Action
       def self.run(params)
         # fastlane will take care of reading in the parameter and fetching the environment variable:
         # unless params[:app_key]
@@ -89,7 +89,7 @@ module Fastlane
         # Define the shared values you are going to provide
         # Example
         [
-          ['UPLOAD_APP_TO_FIR_CUSTOM_VALUE', 'A description of what this value contains']
+          ['UPLOAD_APK_TO_FIR_CUSTOM_VALUE', 'A description of what this value contains']
         ]
       end
 

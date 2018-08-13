@@ -1,0 +1,82 @@
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  before_all do |lane, options|
+    # ...
+  end
+
+  before_each do |lane, options|
+    # ...
+  end
+
+  # desc "Runs all the tests"
+  # lane :test do
+    # gradle(task: "test")
+  # end
+
+  desc "Submit a new Beta Build to Beta"
+  lane :do_publish_beta do |options|
+    # git_pull
+    gradle_version()
+    gradle(
+	  task: "clean"
+	)
+    gradle(
+	  task: "assemble",
+      flavor: "China",
+	  build_type: "Release",
+      # print_command: false,
+      print_command_output: false
+	)
+    # upload_app_to_fir(file_path: "HelloTalk/build/outputs/apk/china/release/HelloTalk-china-release.apk", app_key:"9611b6a99d280463039cbb64b7eb24ca")
+    upload_app_to_fir(file_path: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], app_key:"9611b6a99d280463039cbb64b7eb24ca")
+    # lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+    # lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS]
+    # lane_context[SharedValues::GRADLE_FLAVOR]
+    # lane_context[SharedValues::GRADLE_BUILD_TYPE]
+    # crashlytics
+  
+    # sh "your_script.sh"
+    # You can also use other beta testing services here
+  end
+
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do |options|
+    gradle(task: "clean assembleRelease")
+    upload_to_play_store
+  end
+
+  private_lane :create_properties do |options|
+    create_local_properties(user: 'your_user_name', password: 'your_password')
+  end
+
+  private_lane :assemble_test do |options|
+    create_properties
+    gradle(
+      task: "clean"
+    )
+    gradle(
+      task: "assembleGmtest",
+      print_command_output: false
+    )
+  end
+
+  after_each do |lane, options|
+    # ...
+  end
+
+  after_all do |lane, options|
+    # ...
+  end
+
+  error do |lane, exception, options|
+    if options[:debug]
+      puts "Hi :)"
+    end
+    UI.message(exception.message)
+  end
+
+end

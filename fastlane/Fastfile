@@ -21,15 +21,19 @@ platform :android do
   lane :do_publish_beta do |options|
     # git_pull
     gradle(
-	  task: "clean"
-	)
+    task: "clean"
+    )
     gradle(
-	  task: "assemble",
-      flavor: "China",
-	  build_type: "Release",
+    task: "assemble",
+      # flavor: "China",
+      build_type: "Release",
       # print_command: false,
       print_command_output: false
-	)
+    )
+    puts lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+    puts lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS]
+    puts lane_context[SharedValues::GRADLE_FLAVOR]
+    puts lane_context[SharedValues::GRADLE_BUILD_TYPE]
     # upload_app_to_fir(file_path: "HelloTalk/build/outputs/apk/china/release/HelloTalk-china-release.apk", app_key:"9611b6a99d280463039cbb64b7eb24ca")
     upload_app_to_fir(file_path: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], app_key:"9611b6a99d280463039cbb64b7eb24ca")
     # lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
@@ -37,7 +41,7 @@ platform :android do
     # lane_context[SharedValues::GRADLE_FLAVOR]
     # lane_context[SharedValues::GRADLE_BUILD_TYPE]
     # crashlytics
-  
+
     # sh "your_script.sh"
     # You can also use other beta testing services here
   end

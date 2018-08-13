@@ -37,7 +37,7 @@ platform :android do
     puts lane_context[SharedValues::GRADLE_FLAVOR]
     puts lane_context[SharedValues::GRADLE_BUILD_TYPE]
     # upload_app_to_fir(file_path: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], app_key:"9611b6a99d280463039cbb64b7eb24ca")
-    upload_app_to_fir(file_path: lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS], app_key:"9611b6a99d280463039cbb64b7eb24ca")
+    upload_app_to_fir(apk_paths: lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS], app_key:"9611b6a99d280463039cbb64b7eb24ca")
     # lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
     # lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS]
     # lane_context[SharedValues::GRADLE_FLAVOR]

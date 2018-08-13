@@ -10,7 +10,11 @@ module Fastlane
         unless params[:file_path] and params[:app_key]
           UI.message("file_path or app_key can not be empty")
         end
-        Action.sh "sudo /usr/local/bin/fir p '#{params[:file_path]}' -T '#{params[:app_key]}' -c '#{params[:change_log]}'"
+        puts params[:file_path]
+        params[:file_path].each do | apk |
+          puts "Uploading APK to Play Store: " + apk
+        end
+        # Action.sh "sudo /usr/local/bin/fir p '#{params[:file_path]}' -T '#{params[:app_key]}' -c '#{params[:change_log]}'"
       end
 
       #####################################################
@@ -28,8 +32,8 @@ module Fastlane
       end
 
       def self.available_options
-        # Define all options your action supports. 
-        
+        # Define all options your action supports.
+
         # Below a few examples
         [
           FastlaneCore::ConfigItem.new(key: :file_path,

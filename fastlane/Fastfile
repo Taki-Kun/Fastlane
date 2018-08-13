@@ -5,7 +5,6 @@ default_platform(:android)
 
 platform :android do
   before_all do |lane, options|
-    # gradle_version()
     gradle(
       task: "-v"
     )
@@ -37,8 +36,8 @@ platform :android do
     puts lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS]
     puts lane_context[SharedValues::GRADLE_FLAVOR]
     puts lane_context[SharedValues::GRADLE_BUILD_TYPE]
-    # upload_app_to_fir(file_path: "HelloTalk/build/outputs/apk/china/release/HelloTalk-china-release.apk", app_key:"9611b6a99d280463039cbb64b7eb24ca")
-    upload_app_to_fir(file_path: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], app_key:"9611b6a99d280463039cbb64b7eb24ca")
+    # upload_app_to_fir(file_path: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], app_key:"9611b6a99d280463039cbb64b7eb24ca")
+    upload_app_to_fir(file_path: lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS], app_key:"9611b6a99d280463039cbb64b7eb24ca")
     # lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
     # lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS]
     # lane_context[SharedValues::GRADLE_FLAVOR]

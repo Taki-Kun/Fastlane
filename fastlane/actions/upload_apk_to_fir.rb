@@ -22,6 +22,7 @@ module Fastlane
         end
         puts "new1 start"
         apk_paths = [params[:apk], params[:apk_paths]].flatten.compact
+        puts apk_paths
         apk_paths = [params[:apk]] unless (apk_paths = params[:apk_paths])
         puts apk_paths
         puts "new1 end"

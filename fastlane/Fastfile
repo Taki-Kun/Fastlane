@@ -5,7 +5,7 @@ default_platform(:android)
 
 platform :android do
   before_all do |lane, options|
-    ENV["git_branch"] = git_branch
+    ENV["GIT_BRANCH"] = git_branch
     gradle(
       task: "-v"
     )
@@ -23,8 +23,7 @@ platform :android do
   desc "Submit a new Beta Build to Beta"
   lane :do_publish_beta do |options|
     # git_pull
-    puts "---"
-    puts ENV["git_branch"]
+    puts ENV["GIT_BRANCH"]
     gradle(
       task: "clean"
     )

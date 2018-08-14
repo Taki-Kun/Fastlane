@@ -9,7 +9,6 @@ platform :android do
       task: "-v"
     )
     branch = git_branch
-    puts branch
   end
 
   before_each do |lane, options|
@@ -24,6 +23,7 @@ platform :android do
   desc "Submit a new Beta Build to Beta"
   lane :do_publish_beta do |options|
     # git_pull
+    puts branch
     gradle(
       task: "clean"
     )

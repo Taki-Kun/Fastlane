@@ -26,7 +26,7 @@ module Fastlane
           flavor = Actions.lane_context[SharedValues::GRADLE_FLAVOR] || /([^\/-]*)(?=-[^\/-]*\.apk$)/.match(apk)
           change_log = "---[#{flavor}]+[#{git_branch}]\r\n" + params[:change_log]
           puts "Uploading APK to fir: " + apk
-          #puts change_log
+          puts change_log
         end
         # Action.sh "sudo /usr/local/bin/fir p '#{params[:file_path]}' -T '#{params[:app_key]}' -c '#{params[:change_log]}'"
       end

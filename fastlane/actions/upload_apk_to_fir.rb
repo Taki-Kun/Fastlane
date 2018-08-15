@@ -20,18 +20,11 @@ module Fastlane
             params[:apk] = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
           end
         end
-        puts "new1 start"
-        apk_paths = [params[:apk], params[:apk_paths]]
-        puts apk_paths
-        apk_paths = apk_paths.flatten
-        puts apk_paths
-        apk_paths = apk_paths.compact
-        puts apk_paths
+        apk_paths = [params[:apk], params[:apk_paths]].flatten.compact
         apk_paths = [params[:apk]] unless (apk_paths = params[:apk_paths])
-        puts apk_paths
-        puts "new1 end"
         apk_paths.each do | apk |
-          puts "Uploading APK to fir: " + apk
+          flavor = Actions.lane_context[SharedValues::GRADLE_FLAVOR]
+          puts "Uploading APK to fir: " + apk + ' ' + flavor
         end
         # Action.sh "sudo /usr/local/bin/fir p '#{params[:file_path]}' -T '#{params[:app_key]}' -c '#{params[:change_log]}'"
       end

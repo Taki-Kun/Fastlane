@@ -23,13 +23,13 @@ platform :android do
   desc "Submit a new Beta Build to Beta"
   lane :do_publish_beta do |options|
     # git_pull
-    puts ENV["GIT_BRANCH"] + "\r\n\r\n"
+    puts ENV["GIT_BRANCH"]
     gradle(
       task: "clean"
     )
     gradle(
-    task: "assemble",
-      # flavor: "China",
+      task: "assemble",
+      flavor: options[:app]
       build_type: "Release",
       # print_command: false,
       print_command_output: false
@@ -38,12 +38,7 @@ platform :android do
     puts lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS]
     puts lane_context[SharedValues::GRADLE_FLAVOR]
     puts lane_context[SharedValues::GRADLE_BUILD_TYPE]
-    # upload_app_to_fir(file_path: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], app_key:"9611b6a99d280463039cbb64b7eb24ca")
-    upload_apk_to_fir(apk_paths: lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS], app_key:"9611b6a99d280463039cbb64b7eb24ca")
-    # lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
-    # lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS]
-    # lane_context[SharedValues::GRADLE_FLAVOR]
-    # lane_context[SharedValues::GRADLE_BUILD_TYPE]
+    upload_apk_to_fir(app_key:"9611b6a99d280463039cbb64b7eb24ca")
     # crashlytics
 
     # sh "your_script.sh"

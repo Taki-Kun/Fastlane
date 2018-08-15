@@ -24,8 +24,9 @@ module Fastlane
         apk_paths = [params[:apk]] unless (apk_paths = params[:apk_paths])
         apk_paths.each do | apk |
           flavor = Actions.lane_context[SharedValues::GRADLE_FLAVOR]
-          change_log = "---#{flavor}+[#{ENV['GIT_BRANCH']}]" + params[:change_log]
+          change_log = "---#{/([^\/]*)$/.match(apk)}+[#{ENV['GIT_BRANCH']}]\r\n" + params[:change_log]
           puts "Uploading APK to fir: " + apk
+          puts change_log
         end
         # Action.sh "sudo /usr/local/bin/fir p '#{params[:file_path]}' -T '#{params[:app_key]}' -c '#{params[:change_log]}'"
       end

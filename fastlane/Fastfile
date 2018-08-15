@@ -23,8 +23,7 @@ platform :android do
   desc "Submit a new Beta Build to Beta"
   lane :do_publish_beta do |options|
     # git_pull
-    puts ENV["GIT_BRANCH"]
-    puts lane_context[SharedValues::GIT_BRANCH]
+    puts ENV["GIT_BRANCH"] + "\r\n\r\n"
     gradle(
       task: "clean"
     )

@@ -23,10 +23,10 @@ module Fastlane
         apk_paths = [params[:apk], params[:apk_paths]].flatten.compact
         apk_paths = [params[:apk]] unless (apk_paths = params[:apk_paths])
         apk_paths.each do | apk |
-          flavor = Actions.lane_context[SharedValues::GRADLE_FLAVOR]
-          change_log = "---#{/([^\/]*)$/.match(apk)}+[#{ENV['GIT_BRANCH']}]\r\n" + params[:change_log]
+          #flavor = Actions.lane_context[SharedValues::GRADLE_FLAVOR] || /([^\/]*)(?=\.apk)$/.match(apk)
+          #change_log = "---#{/([^\/]*)(?=\.apk)$/.match(apk)}+[#{ENV['GIT_BRANCH']}]\r\n" + params[:change_log]
           puts "Uploading APK to fir: " + apk
-          puts change_log
+          #puts change_log
         end
         # Action.sh "sudo /usr/local/bin/fir p '#{params[:file_path]}' -T '#{params[:app_key]}' -c '#{params[:change_log]}'"
       end
@@ -77,12 +77,8 @@ module Fastlane
                                        end
                                        ),
           FastlaneCore::ConfigItem.new(key: :app_key,
-                                       description: "Fir key",
-                                       is_string: true,
-                                       optional: true,
-                                       verify_block: proc do |value|
-                                         UI.user_error!("app_key can not be empty") unless !value.empty?
-                                       end
+                                       description: "Fir token",
+                                       is_string: true
                                        ), # the default value if the user didn't provide one
           FastlaneCore::ConfigItem.new(key: :change_log,
                                        description: "change log",

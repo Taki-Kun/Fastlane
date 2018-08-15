@@ -6,6 +6,7 @@ default_platform(:android)
 platform :android do
   before_all do |lane, options|
     ENV["GIT_BRANCH"] = git_branch
+    puts git_branch
     gradle(
       task: "-v"
     )

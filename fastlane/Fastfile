@@ -29,7 +29,7 @@ platform :android do
     )
     gradle(
       task: "assemble",
-      flavor: options[:app]
+      flavor: options[:app],
       build_type: "Release",
       # print_command: false,
       print_command_output: false

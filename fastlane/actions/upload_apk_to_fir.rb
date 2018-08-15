@@ -78,7 +78,11 @@ module Fastlane
                                        ),
           FastlaneCore::ConfigItem.new(key: :app_key,
                                        description: "Fir key",
-                                       is_string: true
+                                       is_string: true,
+                                       optional: true,
+                                       verify_block: proc do |value|
+                                         UI.user_error!("app_key can not be empty") unless !value.empty?
+                                       end
                                        ), # the default value if the user didn't provide one
           FastlaneCore::ConfigItem.new(key: :change_log,
                                        description: "change log",

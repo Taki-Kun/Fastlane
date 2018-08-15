@@ -11,7 +11,7 @@ platform :android do
       task: "-v"
     )
     apk = '/Users/mac/test%2Fdev_270/HelloTalk/build/outputs/apk/google/release/HelloTalk-google-release.apk'
-    flavor = /([^\/]*)(?=-[^\/-]*\.apk$)/.match(apk)
+    flavor = /(?<=[^\/]*-)([^\/]*)(?=-[^\/]*\.apk$)/.match(apk)
     puts apk
     puts flavor
   end

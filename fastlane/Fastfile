@@ -6,6 +6,10 @@ default_platform(:android)
 platform :android do
   before_all do |lane, options|
     ENV["GIT_BRANCH"] = git_branch
+    ENV['GETVERSIONNAME_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
+    ENV['GETVERSIONCODE_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
+    ENV['GETVERSIONNAME_EXT_CONSTANT_NAME'] = 'versionName'
+    ENV['GETVERSIONCODE_EXT_CONSTANT_NAME'] = 'versionCode'
     puts get_version_name
     puts get_version_code
     gradle(

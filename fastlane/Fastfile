@@ -43,7 +43,11 @@ platform :android do
     puts lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS]
     puts lane_context[SharedValues::GRADLE_FLAVOR]
     puts lane_context[SharedValues::GRADLE_BUILD_TYPE]
-    upload_apk_to_fir(app_key:"9611b6a99d280463039cbb64b7eb24ca")
+    begin
+      upload_apk_to_fir(app_key:"9611b6a99d280463039cbb64b7eb24ca")
+    rescue => ex
+      # ...
+    end
     # crashlytics
 
     # sh "your_script.sh"

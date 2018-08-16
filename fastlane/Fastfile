@@ -10,10 +10,8 @@ platform :android do
     ENV['GETVERSIONCODE_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
     ENV['GETVERSIONNAME_EXT_CONSTANT_NAME'] = 'versionName'
     ENV['GETVERSIONCODE_EXT_CONSTANT_NAME'] = 'versionCode'
-    puts get_version_name
-    puts get_version_code
-    puts "#{get_version_name}"
-    puts "#{get_version_code}"
+    ENV['VERSIONNAME'] = get_version_name
+    ENV['VERSIONCODE'] = get_version_code
     gradle(
       task: "-v"
     )

@@ -45,8 +45,6 @@ platform :android do
     puts lane_context[SharedValues::GRADLE_FLAVOR]
     puts lane_context[SharedValues::GRADLE_BUILD_TYPE]
     begin
-      # file = File.read "../buildsystem/whitelabels.json"
-      # data = JSON.parse(file)
       changelog = read_changelog(
         changelog_path: './CHANGELOG.md', # Specify path to CHANGELOG.md
         section_identifier: '[Unreleased]', # Specify what section to read

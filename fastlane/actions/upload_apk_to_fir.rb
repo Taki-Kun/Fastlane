@@ -79,7 +79,7 @@ module Fastlane
                                        env_name: "FIR_APP_TOKEN",
                                        description: "Fir token",
                                        is_string: true
-                                       ), # the default value if the user didn't provide one
+                                       ),
           FastlaneCore::ConfigItem.new(key: :change_log,
                                        description: "change log",
                                        is_string: true,

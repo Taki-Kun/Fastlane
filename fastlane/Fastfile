@@ -11,8 +11,8 @@ platform :android do
     ENV['GETVERSIONCODE_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
     ENV['GETVERSIONNAME_EXT_CONSTANT_NAME'] = 'versionName'
     ENV['GETVERSIONCODE_EXT_CONSTANT_NAME'] = 'versionCode'
-    ENV['VERSIONNAME'] = get_version_name
-    ENV['VERSIONCODE'] = get_version_code
+    ENV['VERSIONNAME'] ||= get_version_name
+    ENV['VERSIONCODE'] ||= get_version_code
     gradle(
       task: "-v"
     )
@@ -44,9 +44,16 @@ platform :android do
     puts lane_context[SharedValues::GRADLE_FLAVOR]
     puts lane_context[SharedValues::GRADLE_BUILD_TYPE]
     begin
+      # file = File.read "../buildsystem/whitelabels.json"
+      # data = JSON.parse(file)
+      read_changelog(
+        changelog_path: './CHANGELOG.md', # Specify path to CHANGELOG.md
+        section_identifier: '[Unreleased]', # Specify what section to read
+        excluded_markdown_elements: ['-', '###']  # Specify which markdown elements should be excluded
+      )
       upload_apk_to_fir(app_key:"9611b6a99d280463039cbb64b7eb24ca")
     rescue => ex
-      # ...
+      puts ex
     end
     # crashlytics
 

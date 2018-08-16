@@ -6,7 +6,10 @@ default_platform(:android)
 platform :android do
   before_all do |lane, options|
     # git_pull
-    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+    ENV['SLACK_URL'] = 'https://hooks.slack.com/services/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'
+    ENV['FL_SLACK_USE_WEBHOOK_CONFIGURED_USERNAME_AND_ICON'] = true
+    ENV['FL_SLACK_USERNAME'] = 'fastlane'
+    ENV['FL_SLACK_ICON_URL'] = 'https://s3-eu-west-1.amazonaws.com/fastlane.tools/fastlane.png'
     ENV['FIR_APP_TOKEN'] = '9611b6a99d280463039cbb64b7eb24ca'
     ENV["GIT_BRANCH"] = git_branch
     ENV['GETVERSIONNAME_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
@@ -15,17 +18,16 @@ platform :android do
     ENV['GETVERSIONCODE_EXT_CONSTANT_NAME'] = 'versionCode'
     ENV['VERSIONNAME'] ||= get_version_name
     ENV['VERSIONCODE'] ||= get_version_code
+    slack(
+      message: "Start a new build",
+      default_payloads: [:git_branch, :lane, :git_author]
+    )
     gradle(
       task: "-v"
     )
     gradle(
       task: "clean"
     )
-                    slack(
-                      message: "Successfully deployed new build",
-                      success: true,
-                      default_payloads: [:git_branch, :lane, :test_result]
-                    )
   end
 
   before_each do |lane, options|

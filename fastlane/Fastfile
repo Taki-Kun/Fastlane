@@ -50,7 +50,6 @@ platform :android do
         section_identifier: '[Unreleased]', # Specify what section to read
         excluded_markdown_elements: ['-', '###']  # Specify which markdown elements should be excluded
       )
-      puts changelog
       upload_apk_to_fir(change_log:changelog)
     rescue => ex
       puts ex

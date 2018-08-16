@@ -76,6 +76,7 @@ module Fastlane
                                        end
                                        ),
           FastlaneCore::ConfigItem.new(key: :app_key,
+                                       env_name: "FIR_APP_TOKEN",
                                        description: "Fir token",
                                        is_string: true
                                        ), # the default value if the user didn't provide one

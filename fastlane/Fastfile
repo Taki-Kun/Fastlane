@@ -6,6 +6,7 @@ default_platform(:android)
 platform :android do
   before_all do |lane, options|
     # git_pull
+    ENV['FIR_APP_TOKEN'] = '9611b6a99d280463039cbb64b7eb24ca'
     ENV["GIT_BRANCH"] = git_branch
     ENV['GETVERSIONNAME_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
     ENV['GETVERSIONCODE_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
@@ -19,12 +20,6 @@ platform :android do
     gradle(
       task: "clean"
     )
-      changelog = read_changelog(
-        changelog_path: './CHANGELOG.md', # Specify path to CHANGELOG.md
-        section_identifier: '[Unreleased]', # Specify what section to read
-        excluded_markdown_elements: ['-', '###']  # Specify which markdown elements should be excluded
-      )
-      puts changelog
   end
 
   before_each do |lane, options|
@@ -52,7 +47,13 @@ platform :android do
     begin
       # file = File.read "../buildsystem/whitelabels.json"
       # data = JSON.parse(file)
-      upload_apk_to_fir(app_key:"9611b6a99d280463039cbb64b7eb24ca")
+      changelog = read_changelog(
+        changelog_path: './CHANGELOG.md', # Specify path to CHANGELOG.md
+        section_identifier: '[Unreleased]', # Specify what section to read
+        excluded_markdown_elements: ['-', '###']  # Specify which markdown elements should be excluded
+      )
+      puts changelog
+      upload_apk_to_fir(change_log:changelog)
     rescue => ex
       puts ex
     end

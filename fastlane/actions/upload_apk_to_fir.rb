@@ -27,7 +27,7 @@ module Fastlane
           change_log = "---[#{flavor}]+[#{ENV['GIT_BRANCH']}]\r\n #{ENV['VERSIONNAME']} - #{ENV['VERSIONCODE']}\r\n" + params[:change_log]
           puts "Uploading APK to fir: " + apk
           puts change_log
-          # Action.sh "sudo /usr/local/bin/fir p '#{apk}' -T '#{params[:app_key]}' -c '#{change_log}'"
+          Action.sh "sudo /usr/local/bin/fir p '#{apk}' -T '#{params[:app_key]}' -c '#{change_log}'"
         end
       end
 

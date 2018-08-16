@@ -5,6 +5,7 @@ default_platform(:android)
 
 platform :android do
   before_all do |lane, options|
+    # git_pull
     ENV["GIT_BRANCH"] = git_branch
     ENV['GETVERSIONNAME_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
     ENV['GETVERSIONCODE_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
@@ -14,6 +15,9 @@ platform :android do
     ENV['VERSIONCODE'] = get_version_code
     gradle(
       task: "-v"
+    )
+    gradle(
+      task: "clean"
     )
   end
 
@@ -28,11 +32,6 @@ platform :android do
 
   desc "Submit a new Beta Build to Beta"
   lane :do_publish_beta do |options|
-    # git_pull
-    puts ENV["GIT_BRANCH"]
-    gradle(
-      task: "clean"
-    )
     gradle(
       task: "assemble",
       flavor: options[:app],

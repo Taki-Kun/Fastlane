@@ -7,12 +7,18 @@ module Fastlane
 =end
     class UploadApkToFirAction < Action
       def self.run(params)
+          Actions.slack(
+            message: "Hi! #{username} \r\n A new #{flavor} upload success \r\n #{change_log}",
+            success: true,
+            default_payloads: [:git_branch, :lane, :git_author, :test_result]
+          )
         # fastlane will take care of reading in the parameter and fetching the environment variable:
         # unless params[:app_key]
         #   UI.message("apk_path or app_key can not be empty")
         # end
         # If no APK params were provided, try to fill in the values from lane context, preferring
         # the multiple APKs over the single APK if set.
+=begin
         if params[:apk_paths].nil? && params[:apk].nil?
           all_apk_paths = Actions.lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS] || []
           if all_apk_paths.size > 1
@@ -28,13 +34,14 @@ module Fastlane
           flavor = Actions.lane_context[SharedValues::GRADLE_FLAVOR] || /([^\/-]*)(?=-[^\/-]*\.apk$)/.match(apk)
           change_log = "[#{flavor}]+[#{ENV['GIT_BRANCH']}]\r\n---\r\n" + params[:change_log]
           puts "Uploading APK to fir: " + apk
-          # Actions.sh "sudo /usr/local/bin/fir p '#{apk}' -T '#{params[:app_key]}' -c '#{change_log}'"
+          Actions.sh "sudo /usr/local/bin/fir p '#{apk}' -T '#{params[:app_key]}' -c '#{change_log}'"
           Actions.slack(
             message: "Hi! #{username} \r\n A new #{flavor} upload success \r\n #{change_log}",
             success: true,
             default_payloads: [:git_branch, :lane, :git_author, :test_result]
           )
         end
+=end
       end
 
       #####################################################

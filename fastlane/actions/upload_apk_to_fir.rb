@@ -6,6 +6,11 @@ module Fastlane
 
     class UploadApkToFirAction < Action
       def self.run(params)
+          Action.slack(
+            message: "Hi!",
+            success: true,
+            default_payloads: [:git_branch, :lane, :git_author, :test_result]
+          )
         # fastlane will take care of reading in the parameter and fetching the environment variable:
         # unless params[:app_key]
         #   UI.message("apk_path or app_key can not be empty")
@@ -35,11 +40,6 @@ module Fastlane
             default_payloads: [:git_branch, :lane, :git_author, :test_result]
           )
 =end
-          Action.slack(
-            message: "Hi!",
-            success: true,
-            default_payloads: [:git_branch, :lane, :git_author, :test_result]
-          )
         end
       end
 

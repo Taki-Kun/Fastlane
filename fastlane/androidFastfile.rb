@@ -30,6 +30,21 @@ platform :android do
       message: "Hi! @channel \r\n A new build start",
       default_payloads: [:git_branch, :lane, :git_author]
     )
+    begin
+      changelog = read_changelog(
+        changelog_path: './CHANGELOG.md', # Specify path to CHANGELOG.md
+        section_identifier: '[Unreleased]', # Specify what section to read
+        excluded_markdown_elements: ['-', '###']  # Specify which markdown elements should be excluded
+      )
+      upload_apk_to_fir(change_log:changelog)
+    rescue => ex
+      puts ex
+      slack(
+        message: "Hi! @issenn \r\n A new build fail",
+        success: false,
+        default_payloads: [:git_branch, :lane, :git_author, :test_result]
+      )
+    end
     gradle(
       task: "-v"
     )

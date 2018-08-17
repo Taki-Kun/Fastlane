@@ -27,7 +27,6 @@ module Fastlane
         # Define all options your action supports.
 
         # Below a few examples
-        Supply::Options.available_options
       end
 
       def self.output

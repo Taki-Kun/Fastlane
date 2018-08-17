@@ -1,6 +1,6 @@
 module Fastlane
   module Actions
-    class TestAction < Action
+    class TestSlackAction < Action
       def self.run(params)
           Actions.slack(
             message: "Hi!",

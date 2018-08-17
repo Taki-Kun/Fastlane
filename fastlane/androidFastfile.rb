@@ -30,16 +30,7 @@ platform :android do
       message: "Hi! @channel \r\n A new build start",
       default_payloads: [:git_branch, :lane, :git_author]
     )
-    begin
-      test()
-    rescue => ex
-      puts ex
-      slack(
-        message: "Hi! @issenn \r\n A new build fail",
-        success: false,
-        default_payloads: [:git_branch, :lane, :git_author, :test_result]
-      )
-    end
+    test_slack
     gradle(
       task: "-v"
     )

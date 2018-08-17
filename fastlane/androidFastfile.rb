@@ -12,6 +12,7 @@ platform :android do
     ENV['FL_SLACK_CHANNEL'] = '#devops'
     ENV['FL_SLACK_LINK_NAMES'] = 'true'
     ENV['FIR_APP_TOKEN'] = '9611b6a99d280463039cbb64b7eb24ca'
+    ENV['UPLOAD_FIR_USERNAME'] = '@issenn @danny'
     ENV["GIT_BRANCH"] = git_branch
     ENV['GETVERSIONNAME_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
     ENV['GETVERSIONCODE_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
@@ -55,11 +56,6 @@ platform :android do
         excluded_markdown_elements: ['-', '###']  # Specify which markdown elements should be excluded
       )
       upload_apk_to_fir(change_log:changelog)
-      slack(
-        message: "Hi! @issenn @danny \r\n A new build success \r\n #{changelog}",
-        success: true,
-        default_payloads: [:git_branch, :lane, :git_author, :test_result]
-      )
     rescue => ex
       puts ex
       slack(

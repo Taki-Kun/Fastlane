@@ -7,7 +7,7 @@ platform :android do
   before_all do |lane, options|
     # git_pull
     ENV['SLACK_URL'] = 'https://hooks.slack.com/services/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'
-    ENV['FL_SLACK_CHANNEL'] = '#devops'
+    ENV['FL_SLACK_CHANNEL'] = '@issenn'
     ENV['FIR_APP_TOKEN'] = '9611b6a99d280463039cbb64b7eb24ca'
     ENV["GIT_BRANCH"] = git_branch
     ENV['GETVERSIONNAME_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'

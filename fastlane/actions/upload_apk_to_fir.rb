@@ -29,7 +29,7 @@ module Fastlane
           puts "Uploading APK to fir: " + apk
           Action.sh "sudo /usr/local/bin/fir p '#{apk}' -T '#{params[:app_key]}' -c '#{change_log}'"
           Action.slack(
-            message: "Hi! #{username} \r\n A new #{flavor} upload success \r\n #{changelog}",
+            message: "Hi! #{username} \r\n A new #{flavor} upload success \r\n #{change_log}",
             success: true,
             default_payloads: [:git_branch, :lane, :git_author, :test_result]
           )
@@ -87,7 +87,7 @@ module Fastlane
                                        is_string: true
                                        ),
           FastlaneCore::ConfigItem.new(key: :username,
-                                       env_name: "UPLOAD_FIR_USERNAME",
+                                       env_name: "NOTIFICATIONS_UPLOAD_ANDROID_FIR_USERNAME",
                                        description: "@username",
                                        optional: true
                                        ),

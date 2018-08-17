@@ -12,7 +12,7 @@ platform :android do
     ENV['FL_SLACK_CHANNEL'] = '#devops'
     ENV['FL_SLACK_LINK_NAMES'] = 'true'
     ENV['FIR_APP_TOKEN'] = '9611b6a99d280463039cbb64b7eb24ca'
-    ENV['UPLOAD_FIR_USERNAME'] = '@issenn @danny'
+    ENV['NOTIFICATIONS_UPLOAD_ANDROID_FIR_USERNAME'] = '@issenn @danny'
     ENV["GIT_BRANCH"] = git_branch
     ENV['GETVERSIONNAME_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
     ENV['GETVERSIONCODE_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'

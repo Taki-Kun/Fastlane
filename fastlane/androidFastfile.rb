@@ -20,7 +20,7 @@ platform :android do
     ENV['VERSIONNAME'] ||= get_version_name
     ENV['VERSIONCODE'] ||= get_version_code
     slack(
-      message: "Hi! @channel \r\n A new build Start",
+      message: "Hi! @channel \r\n A new build start",
       default_payloads: [:git_branch, :lane, :git_author]
     )
     gradle(
@@ -77,7 +77,7 @@ platform :android do
 
   after_all do |lane, options|
     slack(
-      message: "Hi! @channel \r\n A new build Start",
+      message: "Hi! @channel \r\n A new build end",
       default_payloads: [:git_branch, :lane, :git_author]
     )
   end

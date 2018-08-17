@@ -6,8 +6,9 @@ default_platform(:android)
 platform :android do
   before_all do |lane, options|
     # git_pull
-    ENV['SLACK_URL'] = 'https://hooks.slack.com/services/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'
+    # ENV['SLACK_URL'] = 'https://hooks.slack.com/services/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'
     # ENV['SLACK_URL'] = 'https://hooks.slack.com/services/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'
+    ENV['SLACK_URL'] = 'https://hooks.slack.com/services/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'
     ENV['FL_SLACK_CHANNEL'] = '#devops'
     ENV['FL_SLACK_LINK_NAMES'] = 'true'
     ENV['FIR_APP_TOKEN'] = '9611b6a99d280463039cbb64b7eb24ca'
@@ -55,7 +56,7 @@ platform :android do
       )
       upload_apk_to_fir(change_log:changelog)
       slack(
-        message: "Hi! @issenn \r\n A new build success",
+        message: "Hi! @issenn @danny \r\n A new build success",
         success: true,
         default_payloads: [:git_branch, :lane, :git_author, :test_result]
       )

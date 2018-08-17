@@ -31,12 +31,7 @@ platform :android do
       default_payloads: [:git_branch, :lane, :git_author]
     )
     begin
-      changelog = read_changelog(
-        changelog_path: './CHANGELOG.md', # Specify path to CHANGELOG.md
-        section_identifier: '[Unreleased]', # Specify what section to read
-        excluded_markdown_elements: ['-', '###']  # Specify which markdown elements should be excluded
-      )
-      upload_apk_to_fir(change_log:changelog)
+      test()
     rescue => ex
       puts ex
       slack(

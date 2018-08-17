@@ -19,7 +19,7 @@ platform :android do
     ENV['VERSIONNAME'] ||= get_version_name
     ENV['VERSIONCODE'] ||= get_version_code
     slack(
-      message: "Start a new build\r\n @issenn @issenn <@issenn>",
+      message: "Hi! @channel \r\n A new build Start",
       default_payloads: [:git_branch, :lane, :git_author]
     )
     gradle(
@@ -54,8 +54,18 @@ platform :android do
         excluded_markdown_elements: ['-', '###']  # Specify which markdown elements should be excluded
       )
       upload_apk_to_fir(change_log:changelog)
+      slack(
+        message: "Hi! @issenn \r\n A new build success",
+        success: true,
+        default_payloads: [:git_branch, :lane, :git_author, :test_result]
+      )
     rescue => ex
       puts ex
+      slack(
+        message: "Hi! @issenn \r\n A new build fail",
+        success: false,
+        default_payloads: [:git_branch, :lane, :git_author, :test_result]
+      )
     end
 
   end
@@ -65,7 +75,10 @@ platform :android do
   end
 
   after_all do |lane, options|
-    # ...
+    slack(
+      message: "Hi! @channel \r\n A new build Start",
+      default_payloads: [:git_branch, :lane, :git_author]
+    )
   end
 
   error do |lane, exception, options|

@@ -8,7 +8,7 @@ module Fastlane
     class UploadApkToFirAction < Action
       def self.run(params)
           Actions.slack(
-            message: "Hi! #{username} \r\n A new #{flavor} upload success \r\n #{change_log}",
+            message: "Hi!",
             success: true,
             default_payloads: [:git_branch, :lane, :git_author, :test_result]
           )

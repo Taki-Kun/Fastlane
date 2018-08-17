@@ -6,7 +6,7 @@ default_platform(:android)
 platform :android do
   before_all do |lane, options|
     # git_pull
-    ENV['SLACK_URL'] = 'https://hooks.slack.com/services/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'
+    ENV['SLACK_URL'] = 'https://hooks.slack.com/services/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'
     ENV['FL_SLACK_USE_WEBHOOK_CONFIGURED_USERNAME_AND_ICON'] = 'true'
     ENV['FL_SLACK_USERNAME'] = 'fastlane'
     ENV['FL_SLACK_ICON_URL'] = 'https://s3-eu-west-1.amazonaws.com/fastlane.tools/fastlane.png'

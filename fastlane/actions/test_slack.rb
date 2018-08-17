@@ -2,11 +2,11 @@ module Fastlane
   module Actions
     class TestSlackAction < Action
       def self.run(params)
-          Actions.slack(
+          Fastlane::Actions::SlackAction.run({
             message: "Hi!",
             success: true,
             default_payloads: [:git_branch, :lane, :git_author, :test_result]
-          )
+          })
       end
 
       #####################################################

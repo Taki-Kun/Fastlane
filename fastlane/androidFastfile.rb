@@ -56,7 +56,7 @@ platform :android do
       )
       upload_apk_to_fir(change_log:changelog)
       slack(
-        message: "Hi! @issenn @danny \r\n A new build success",
+        message: "Hi! @issenn @danny \r\n A new build success \r\n #{changelog}",
         success: true,
         default_payloads: [:git_branch, :lane, :git_author, :test_result]
       )

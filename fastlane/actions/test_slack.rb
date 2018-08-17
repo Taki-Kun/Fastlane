@@ -27,6 +27,7 @@ module Fastlane
         # Define all options your action supports.
 
         # Below a few examples
+        Fastlane::Actions::SlackAction.available_options
       end
 
       def self.output

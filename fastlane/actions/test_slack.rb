@@ -2,7 +2,7 @@ module Fastlane
   module Actions
     class TestSlackAction < Action
       def self.run(params)
-        require 'slack'
+        require 'sh'
           Fastlane::Actions.slack(
             message: "Hi!",
             success: true,

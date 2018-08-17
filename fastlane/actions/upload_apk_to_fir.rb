@@ -1,9 +1,10 @@
 module Fastlane
   module Actions
+=begin
     module SharedValues
       UPLOAD_APK_TO_FIR_CUSTOM_VALUE = :UPLOAD_APK_TO_FIR_CUSTOM_VALUE
     end
-
+=end
     class UploadApkToFirAction < Action
       def self.run(params)
         # fastlane will take care of reading in the parameter and fetching the environment variable:

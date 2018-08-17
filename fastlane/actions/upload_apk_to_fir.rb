@@ -28,6 +28,13 @@ module Fastlane
           change_log = "[#{flavor}]+[#{ENV['GIT_BRANCH']}]\r\n---\r\n" + params[:change_log]
           puts "Uploading APK to fir: " + apk
           Action.sh "sudo /usr/local/bin/fir p '#{apk}' -T '#{params[:app_key]}' -c '#{change_log}'"
+=begin
+          Action.slack(
+            message: "Hi! #{username} \r\n A new #{flavor} upload success \r\n #{change_log}",
+            success: true,
+            default_payloads: [:git_branch, :lane, :git_author, :test_result]
+          )
+=end
           Action.slack(
             message: "Hi! #{username} \r\n A new #{flavor} upload success \r\n #{change_log}",
             success: true,

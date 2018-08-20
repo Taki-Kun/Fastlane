@@ -24,16 +24,10 @@ module Fastlane
         apk_paths = [params[:apk], params[:apk_paths]].flatten.compact
         apk_paths = [params[:apk]] unless (apk_paths = params[:apk_paths])
         apk_paths.each do | apk |
-          username = params[:username] || ''
           flavor = Actions.lane_context[SharedValues::GRADLE_FLAVOR] || /([^\/-]*)(?=-[^\/-]*\.apk$)/.match(apk)
           change_log = "[#{flavor}]+[#{ENV['GIT_BRANCH']}]\r\n---\r\n" + params[:change_log]
           puts "Uploading APK to fir: " + apk
           Actions.sh "sudo /usr/local/bin/fir p '#{apk}' -T '#{params[:app_key]}' -c '#{change_log}'"
-          Actions.slack(
-            message: "Hi! #{username} \r\n A new #{flavor} upload success \r\n #{change_log}",
-            success: true,
-            default_payloads: [:git_branch, :lane, :git_author, :test_result]
-          )
         end
       end
 
@@ -86,11 +80,6 @@ module Fastlane
                                        env_name: "FIR_APP_TOKEN",
                                        description: "Fir token",
                                        is_string: true
-                                       ),
-          FastlaneCore::ConfigItem.new(key: :username,
-                                       env_name: "NOTIFICATIONS_UPLOAD_ANDROID_FIR_USERNAME",
-                                       description: "@username",
-                                       optional: true
                                        ),
           FastlaneCore::ConfigItem.new(key: :change_log,
                                        description: "change log",

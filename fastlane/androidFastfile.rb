@@ -62,7 +62,7 @@ platform :android do
 
   lane :do_upload do
     slack(
-      message: "Hi! @issenn \r\n A new app upload start",
+      message: "Hi! @issenn \r\n A new app uploading",
       default_payloads: [:git_branch, :lane, :git_author, :test_result]
     )
     begin

@@ -13,7 +13,7 @@ platform :android do
     ENV['FL_SLACK_LINK_NAMES'] = 'true'
     ENV['MAILGUN_SANDBOX_POSTMASTER'] = 'issenn@sandboxc3b6b7d6022b484eabc7c39f728536a5.mailgun.org'
     ENV['MAILGUN_APIKEY'] = '5d21a2e0cce1996b200d8f991d72856d-a4502f89-ce938adb'
-    ENV['FIR_APP_TOKEN'] = '9611b6a99d280463039cbb64b7eb24ca1'
+    ENV['FIR_APP_TOKEN'] = '9611b6a99d280463039cbb64b7eb24ca'
     ENV["GIT_BRANCH"] = git_branch
     ENV['GETVERSIONNAME_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
     ENV['GETVERSIONCODE_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
@@ -21,6 +21,11 @@ platform :android do
     ENV['GETVERSIONCODE_EXT_CONSTANT_NAME'] = 'versionCode'
     ENV['VERSIONNAME'] ||= get_version_name
     ENV['VERSIONCODE'] ||= get_version_code
+    ENV['CHANGELOG'] = read_changelog(
+      changelog_path: './CHANGELOG.md', # Specify path to CHANGELOG.md
+      section_identifier: '[Unreleased]', # Specify what section to read
+      excluded_markdown_elements: ['-', '###']  # Specify which markdown elements should be excluded
+    )
     slack(
       message: "Hi! @channel \r\n A new build start",
       default_payloads: [:git_branch, :lane, :git_author]
@@ -62,11 +67,6 @@ platform :android do
       default_payloads: [:git_branch, :lane, :git_author]
     )
     begin
-      ENV['CHANGELOG'] = read_changelog(
-        changelog_path: './CHANGELOG.md', # Specify path to CHANGELOG.md
-        section_identifier: '[Unreleased]', # Specify what section to read
-        excluded_markdown_elements: ['-', '###']  # Specify which markdown elements should be excluded
-      )
       upload_apk_to_fir(change_log:ENV['CHANGELOG'])
       slack(
         message: "Hi! @issenn \r\n A new app upload success \r\n #{ENV['CHANGELOG']}",
@@ -88,6 +88,12 @@ platform :android do
           message: "Hi! @issenn \r\n A new app upload failed",
           success: false,
           default_payloads: [:git_branch, :lane, :git_author, :test_result]
+        )
+        mailgun(
+          to: "issenn@hellotalk.com",
+          success: true,
+          app_link: "https://fir.im/hellotalkandroid",
+          message: "#{ENV['CHANGELOG']}"
         )
         # raise ex
         puts ex

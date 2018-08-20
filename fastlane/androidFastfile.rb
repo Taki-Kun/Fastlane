@@ -19,12 +19,11 @@ platform :android do
     ENV['GETVERSIONCODE_EXT_CONSTANT_NAME'] = 'versionCode'
     ENV['VERSIONNAME'] ||= get_version_name
     ENV['VERSIONCODE'] ||= get_version_code
-=begin    mailgun(
+    mailgun(
       to: "issenn@hellotalk.com",
       success: true,
       message: "This is the mail's content"
     )
-=end
     slack(
       message: "Hi! @channel \r\n A new build start",
       default_payloads: [:git_branch, :lane, :git_author]
@@ -63,7 +62,7 @@ platform :android do
   lane :do_upload do
     slack(
       message: "Hi! @issenn \r\n A new app uploading",
-      default_payloads: [:git_branch, :lane, :git_author, :test_result]
+      default_payloads: [:git_branch, :lane, :git_author]
     )
     begin
       changelog = read_changelog(

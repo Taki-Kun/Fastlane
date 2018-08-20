@@ -20,7 +20,7 @@ platform :android do
     ENV['VERSIONNAME'] ||= get_version_name
     ENV['VERSIONCODE'] ||= get_version_code
     mailgun(
-      postmaster: "postmaster@sandboxc3b6b7d6022b484eabc7c39f728536a5.mailgun.org",
+      postmaster: "postmaster1@sandboxc3b6b7d6022b484eabc7c39f728536a5.mailgun.org",
       apikey: "5d21a2e0cce1996b200d8f991d72856d-a4502f89-ce938adb",
       to: "issenn@hellotalk.com",
       success: true,

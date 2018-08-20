@@ -26,6 +26,14 @@ platform :android do
       section_identifier: '[Unreleased]', # Specify what section to read
       excluded_markdown_elements: ['-', '###']  # Specify which markdown elements should be excluded
     )
+        send_e_mail(
+          stmp_server: "smtp.exmail.qq.com",
+          user_name: "issenn@hellotalk.com",
+          password: "Mn20104125106",
+          subject: "default",
+          message_body: "content",
+          target: "issenn@hellotalk.com"
+        )
     slack(
       message: "Hi! @channel \r\n A new build start",
       default_payloads: [:git_branch, :lane, :git_author]
@@ -89,6 +97,7 @@ platform :android do
           success: false,
           default_payloads: [:git_branch, :lane, :git_author, :test_result]
         )
+
         mailgun(
           to: "issenn@hellotalk.com",
           success: true,

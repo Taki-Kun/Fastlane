@@ -79,7 +79,7 @@ platform :android do
       )
     rescue => ex
       $upload_retry += 1
-      if $upload_retry <= 3
+      if $upload_retry < 3
         do_upload
       else
         slack(
@@ -87,7 +87,8 @@ platform :android do
           success: false,
           default_payloads: [:git_branch, :lane, :git_author, :test_result]
         )
-        raise ex
+        # raise ex
+        puts ex
       end
     end
   end

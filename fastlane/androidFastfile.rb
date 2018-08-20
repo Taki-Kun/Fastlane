@@ -11,7 +11,7 @@ platform :android do
     ENV['SLACK_URL'] = 'https://hooks.slack.com/services/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'
     ENV['FL_SLACK_CHANNEL'] = '#devops'
     ENV['FL_SLACK_LINK_NAMES'] = 'true'
-    ENV['FIR_APP_TOKEN'] = '9611b6a99d280463039cbb64b7eb24ca'
+    ENV['FIR_APP_TOKEN'] = '9611b6a99d280463039cbb64b7eb24ca1'
     ENV["GIT_BRANCH"] = git_branch
     ENV['GETVERSIONNAME_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
     ENV['GETVERSIONCODE_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'

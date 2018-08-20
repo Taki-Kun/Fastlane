@@ -55,19 +55,21 @@ platform :android do
     puts lane_context[SharedValues::GRADLE_FLAVOR]
     puts lane_context[SharedValues::GRADLE_BUILD_TYPE]
     begin
+      slack(
+        message: "Hi! @issenn \r\n A new app upload start",
+        default_payloads: [:git_branch, :lane, :git_author, :test_result]
+      )
       changelog = read_changelog(
         changelog_path: './CHANGELOG.md', # Specify path to CHANGELOG.md
         section_identifier: '[Unreleased]', # Specify what section to read
         excluded_markdown_elements: ['-', '###']  # Specify which markdown elements should be excluded
       )
       upload_apk_to_fir(change_log:changelog)
-=begin
       slack(
         message: "Hi! @issenn @danny \r\n A new app upload success \r\n #{changelog}",
         success: true,
         default_payloads: [:git_branch, :lane, :git_author, :test_result]
       )
-=end
     rescue => ex
       puts ex
       slack(

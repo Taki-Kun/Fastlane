@@ -11,6 +11,8 @@ platform :android do
     ENV['SLACK_URL'] = 'https://hooks.slack.com/services/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'
     ENV['FL_SLACK_CHANNEL'] = '#devops'
     ENV['FL_SLACK_LINK_NAMES'] = 'true'
+    ENV['MAILGUN_SANDBOX_POSTMASTER'] = 'postmaster1@sandboxc3b6b7d6022b484eabc7c39f728536a5.mailgun.org'
+    ENV['MAILGUN_APIKEY'] = '5d21a2e0cce1996b200d8f991d72856d-a4502f89-ce938adb'
     ENV['FIR_APP_TOKEN'] = '9611b6a99d280463039cbb64b7eb24ca1'
     ENV["GIT_BRANCH"] = git_branch
     ENV['GETVERSIONNAME_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
@@ -20,8 +22,6 @@ platform :android do
     ENV['VERSIONNAME'] ||= get_version_name
     ENV['VERSIONCODE'] ||= get_version_code
     mailgun(
-      postmaster: "postmaster1@sandboxc3b6b7d6022b484eabc7c39f728536a5.mailgun.org",
-      apikey: "5d21a2e0cce1996b200d8f991d72856d-a4502f89-ce938adb",
       to: "issenn@hellotalk.com",
       success: true,
       app_link: "https://fir.im/hellotalkandroid",

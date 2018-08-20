@@ -32,7 +32,7 @@ platform :android do
           password: "Mn20104125106",
           subject: "default",
           message_body: "content",
-          target: "issenn@hellotalk.com"
+          recipients: "issenn@hellotalk.com"
         )
     slack(
       message: "Hi! @channel \r\n A new build start",

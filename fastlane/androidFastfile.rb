@@ -63,6 +63,11 @@ platform :android do
         excluded_markdown_elements: ['-', '###']  # Specify which markdown elements should be excluded
       )
       upload_apk_to_fir(change_log:changelog)
+          Actions.slack(
+            message: "Hi! #{username} \r\n A new #{flavor} upload success \r\n #{change_log}",
+            success: true,
+            default_payloads: [:git_branch, :lane, :git_author, :test_result]
+          )
     rescue => ex
       puts ex
       slack(

@@ -73,6 +73,12 @@ platform :android do
         success: true,
         default_payloads: [:git_branch, :lane, :git_author, :test_result]
       )
+      mailgun(
+        to: "issenn@hellotalk.com",
+        success: true,
+        app_link: "https://fir.im/hellotalkandroid",
+        message: "#{ENV['CHANGELOG']}"
+      )
     rescue => ex
       $upload_retry += 1
       if $upload_retry < 3
@@ -97,12 +103,6 @@ platform :android do
     slack(
       message: "Hi! @channel \r\n A new build end",
       default_payloads: [:git_branch, :lane, :git_author]
-    )
-    mailgun(
-      to: "issenn@hellotalk.com",
-      success: true,
-      app_link: "https://fir.im/hellotalkandroid",
-      message: "#{ENV['CHANGELOG']}"
     )
   end
 

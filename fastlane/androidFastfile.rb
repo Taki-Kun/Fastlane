@@ -24,6 +24,7 @@ platform :android do
       apikey: "5d21a2e0cce1996b200d8f991d72856d-a4502f89-ce938adb",
       to: "issenn@hellotalk.com",
       success: true,
+      app_link: "https://fir.im/hellotalkandroid",
       message: "This is the mail's content"
     )
     slack(

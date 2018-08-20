@@ -3,6 +3,7 @@ module Fastlane
     class TestSlackAction < Action
       def self.run(params)
           Fastlane::Actions::SlackAction.run(
+            slack_url: 'https://hooks.slack.com/services/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',
             message: "Hi!",
             success: true,
             default_payloads: [:git_branch, :lane, :git_author, :test_result]

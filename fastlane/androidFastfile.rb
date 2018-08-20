@@ -21,12 +21,6 @@ platform :android do
     ENV['GETVERSIONCODE_EXT_CONSTANT_NAME'] = 'versionCode'
     ENV['VERSIONNAME'] ||= get_version_name
     ENV['VERSIONCODE'] ||= get_version_code
-    mailgun(
-      to: "issenn@hellotalk.com",
-      success: true,
-      app_link: "https://fir.im/hellotalkandroid",
-      message: "This is the mail's content"
-    )
     slack(
       message: "Hi! @channel \r\n A new build start",
       default_payloads: [:git_branch, :lane, :git_author]
@@ -68,14 +62,14 @@ platform :android do
       default_payloads: [:git_branch, :lane, :git_author]
     )
     begin
-      changelog = read_changelog(
+      ENV['CHANGELOG'] = read_changelog(
         changelog_path: './CHANGELOG.md', # Specify path to CHANGELOG.md
         section_identifier: '[Unreleased]', # Specify what section to read
         excluded_markdown_elements: ['-', '###']  # Specify which markdown elements should be excluded
       )
-      upload_apk_to_fir(change_log:changelog)
+      upload_apk_to_fir(change_log:ENV['CHANGELOG'])
       slack(
-        message: "Hi! @issenn \r\n A new app upload success \r\n #{changelog}",
+        message: "Hi! @issenn \r\n A new app upload success \r\n #{ENV['CHANGELOG']}",
         success: true,
         default_payloads: [:git_branch, :lane, :git_author, :test_result]
       )
@@ -103,6 +97,12 @@ platform :android do
     slack(
       message: "Hi! @channel \r\n A new build end",
       default_payloads: [:git_branch, :lane, :git_author]
+    )
+    mailgun(
+      to: "issenn@hellotalk.com",
+      success: true,
+      app_link: "https://fir.im/hellotalkandroid",
+      message: "#{ENV['CHANGELOG']}"
     )
   end
 

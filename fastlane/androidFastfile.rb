@@ -60,10 +60,21 @@ platform :android do
   end
 
   lane :to_firim do
-    firim(
-      app_version: get_version_name,
-      app_build_version: get_version_code
-    )
+    all_apk_paths = lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS] || []
+    apk_paths = [lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], all_apk_paths].flatten.compact
+    apk_paths = [lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]] unless (apk_paths = all_apk_paths)
+    puts apk_paths
+    apk_paths.each do | apk |
+      # flavor = lane_context[SharedValues::GRADLE_FLAVOR] || /([^\/-]*)(?=-[^\/-]*\.apk$)/.match(apk)
+      # change_log = "[#{flavor}]+[#{ENV['GIT_BRANCH']}]\r\n---\r\n" + params[:change_log]
+      # puts "Uploading APK to fir: " + apk
+      # sh "sudo /usr/local/bin/fir p '#{apk}' -T '#{params[:app_key]}' -c '#{change_log}'"
+      firim(
+        apk: apk,
+        app_version: get_version_name,
+        app_build_version: get_version_code
+      )
+    end
   end
 =begin
   $upload_retry=0

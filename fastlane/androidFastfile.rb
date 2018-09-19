@@ -30,14 +30,6 @@ platform :android do
       message: "Hi! @channel \r\n A new build start",
       default_payloads: [:git_branch, :lane, :git_author]
     )
-    send_e_mail(
-      stmp_server: "smtp.exmail.qq.com",
-      user_name: "issenn@hellotalk.com",
-      password: "Mn20104125106",
-      subject: "default",
-      message_body: "content",
-      recipients: "issenn@hellotalk.com"
-    )
     gradle(
       task: "-v"
     )
@@ -140,13 +132,21 @@ platform :android do
         success: true,
         default_payloads: [:git_branch, :lane, :git_author, :test_result]
       )
+      send_e_mail(
+        stmp_server: "smtp.exmail.qq.com",
+        user_name: "issenn@hellotalk.com",
+        password: "Mn20104125106",
+        subject: "default",
+        message_body: "Hi! @issenn \r\n A new app upload success \r\nFlavor: #{flavor} #{ENV['CHANGELOG']}",
+        recipients: "issenn@hellotalk.com"
+      )
     rescue => ex
       $upload_retry += 1
       if $upload_retry < 3
         do_upload_firim
       else
         slack(
-          message: "Hi! @issenn \r\n A new app upload failed",
+          message: "Hi! @issenn \r\n A new app upload failed \r\nFlavor: #{flavor}",
           success: false,
           default_payloads: [:git_branch, :lane, :git_author, :test_result]
         )

@@ -112,12 +112,12 @@ platform :android do
     puts lane_context[SharedValues::GRADLE_BUILD_TYPE]
     puts get_version_name
     puts get_version_code
-    slack(
-      message: "Hi! @issenn \r\n A new app uploading \r\nFlavor: #{flavor}",
-      default_payloads: [:git_branch, :lane, :git_author]
-    )
     begin
       flavor = lane_context[SharedValues::GRADLE_FLAVOR] || /([^\/-]*)(?=-[^\/-]*\.apk$)/.match(apk)
+      slack(
+        message: "Hi! @issenn \r\n A new app uploading \r\nFlavor: #{flavor}",
+        default_payloads: [:git_branch, :lane, :git_author]
+      )
       change_log = "[#{flavor}]+[#{ENV['GIT_BRANCH']}]\r\n---\r\n" + ENV['CHANGELOG']
       firim(
         apk: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],

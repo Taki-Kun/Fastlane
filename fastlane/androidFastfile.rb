@@ -123,8 +123,6 @@ platform :android do
         apk: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
         app_version: get_version_name,
         app_build_version: get_version_code,
-        # app_is_show_plaza: true,
-        app_is_opened: true,
         app_changelog: change_log
       )
       slack(
@@ -138,7 +136,7 @@ platform :android do
         password: "Hello123",
         subject: "default",
         message_body: "Hi! @issenn \r\n A new app upload success \r\nFlavor: #{flavor} #{ENV['CHANGELOG']}",
-        recipients: "issenn@hellotalk.com"
+        recipients: ["issenn@hellotalk.com", "update@hellotalk.com"]
       )
     rescue => ex
       $upload_retry += 1

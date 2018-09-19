@@ -62,7 +62,7 @@ platform :android do
 
   lane :to_firim do
     firim
-  done
+  end
 
   $upload_retry=0
 

@@ -60,7 +60,10 @@ platform :android do
   end
 
   lane :to_firim do
-    firim
+    firim(
+      app_version: get_version_name,
+      app_build_version: get_version_code
+    )
   end
 =begin
   $upload_retry=0

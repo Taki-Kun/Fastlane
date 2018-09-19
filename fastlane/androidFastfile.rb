@@ -14,7 +14,7 @@ platform :android do
     ENV['MAILGUN_SANDBOX_POSTMASTER'] = 'issenn@sandboxc3b6b7d6022b484eabc7c39f728536a5.mailgun.org'
     ENV['MAILGUN_APIKEY'] = '5d21a2e0cce1996b200d8f991d72856d-a4502f89-ce938adb'
     ENV['FIR_APP_TOKEN'] = '9611b6a99d280463039cbb64b7eb24ca'
-    ENV['FIRIM_TOKEN'] = '9611b6a99d280463039cbb64b7eb24ca'
+    ENV['FIRIM_API_TOKEN'] = '9611b6a99d280463039cbb64b7eb24ca'
     ENV["GIT_BRANCH"] = git_branch
     ENV['GETVERSIONNAME_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
     ENV['GETVERSIONCODE_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'

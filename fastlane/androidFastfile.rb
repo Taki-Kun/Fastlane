@@ -134,8 +134,8 @@ platform :android do
       )
       send_e_mail(
         stmp_server: "smtp.exmail.qq.com",
-        user_name: "issenn@hellotalk.com",
-        password: "Mn20104125106",
+        user_name: "update@hellotalk.com",
+        password: "Hello123",
         subject: "default",
         message_body: "Hi! @issenn \r\n A new app upload success \r\nFlavor: #{flavor} #{ENV['CHANGELOG']}",
         recipients: "issenn@hellotalk.com"

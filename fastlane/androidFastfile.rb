@@ -123,8 +123,8 @@ platform :android do
         apk: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
         app_version: get_version_name,
         app_build_version: get_version_code,
-        app_is_show_plaza: true,
-        # app_is_opened: true,
+        # app_is_show_plaza: true,
+        app_is_opened: true,
         app_changelog: change_log
       )
       slack(

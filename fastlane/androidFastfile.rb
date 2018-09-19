@@ -60,6 +60,10 @@ platform :android do
 
   end
 
+  lane :to_firim do
+    firim
+  end
+
   $upload_retry=0
 
   lane :do_upload do

@@ -75,13 +75,29 @@ platform :android do
     end
   end
 
+  desc "Submit a new Release Build to all"
+  lane :do_publish_all do |options|
+    do_publish_china
+    do_publish_google
+  end
+
   desc "Submit a new Release Build to China"
   lane :do_publish_china do |options|
     gradle(
       task: "assemble",
       flavor: "China",
       build_type: "Release",
-      # print_command: false,
+      print_command_output: false
+    )
+    do_upload_firim
+  end
+
+  desc "Submit a new Release Build to Google"
+  lane :do_publish_google do |options|
+    gradle(
+      task: "assemble",
+      flavor: "Google",
+      build_type: "Release",
       print_command_output: false
     )
     do_upload_firim

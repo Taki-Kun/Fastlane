@@ -114,16 +114,16 @@ platform :android do
   $upload_retry=0
 
   lane :do_upload_firim do
-    slack(
-      message: "Hi! @issenn \r\n A new app uploading",
-      default_payloads: [:git_branch, :lane, :git_author]
-    )
     puts lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
     puts lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS]
     puts lane_context[SharedValues::GRADLE_FLAVOR]
     puts lane_context[SharedValues::GRADLE_BUILD_TYPE]
     puts get_version_name
     puts get_version_code
+    slack(
+      message: "Hi! @issenn \r\n A new app uploading \r\nFlavor: #{flavor}",
+      default_payloads: [:git_branch, :lane, :git_author]
+    )
     begin
       flavor = lane_context[SharedValues::GRADLE_FLAVOR] || /([^\/-]*)(?=-[^\/-]*\.apk$)/.match(apk)
       change_log = "[#{flavor}]+[#{ENV['GIT_BRANCH']}]\r\n---\r\n" + ENV['CHANGELOG']
@@ -136,7 +136,7 @@ platform :android do
         app_changelog: change_log
       )
       slack(
-        message: "Hi! @issenn \r\n A new app upload success \r\n #{ENV['CHANGELOG']}",
+        message: "Hi! @issenn \r\n A new app upload success \r\nFlavor: #{flavor} #{ENV['CHANGELOG']}",
         success: true,
         default_payloads: [:git_branch, :lane, :git_author, :test_result]
       )

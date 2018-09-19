@@ -55,15 +55,13 @@ platform :android do
     puts lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS]
     puts lane_context[SharedValues::GRADLE_FLAVOR]
     puts lane_context[SharedValues::GRADLE_BUILD_TYPE]
-    to_firim
-
+    do_upload_firim_for_all
   end
 
-  lane :to_firim do
+  lane :do_upload_firim_for_all do
     all_apk_paths = lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS] || []
     apk_paths = [lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], all_apk_paths].flatten.compact
     apk_paths = [lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]] unless (apk_paths = all_apk_paths)
-    puts apk_paths
     apk_paths.each do | apk |
       # flavor = lane_context[SharedValues::GRADLE_FLAVOR] || /([^\/-]*)(?=-[^\/-]*\.apk$)/.match(apk)
       # change_log = "[#{flavor}]+[#{ENV['GIT_BRANCH']}]\r\n---\r\n" + params[:change_log]
@@ -76,6 +74,33 @@ platform :android do
       )
     end
   end
+
+  desc "Submit a new Release Build to China"
+  lane :do_publish_china do |options|
+    gradle(
+      task: "assemble",
+      flavor: "China",
+      build_type: "Release",
+      # print_command: false,
+      print_command_output: false
+    )
+    do_upload_firim
+  end
+
+  lane :do_upload_firim do
+    puts lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+    puts lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS]
+    puts lane_context[SharedValues::GRADLE_FLAVOR]
+    puts lane_context[SharedValues::GRADLE_BUILD_TYPE]
+    puts get_version_name
+    puts get_version_code
+    firim(
+      apk: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
+      app_version: get_version_name,
+      app_build_version: get_version_code
+    )
+  end
+
 =begin
   $upload_retry=0
 

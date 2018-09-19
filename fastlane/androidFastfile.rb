@@ -14,6 +14,7 @@ platform :android do
     ENV['MAILGUN_SANDBOX_POSTMASTER'] = 'issenn@sandboxc3b6b7d6022b484eabc7c39f728536a5.mailgun.org'
     ENV['MAILGUN_APIKEY'] = '5d21a2e0cce1996b200d8f991d72856d-a4502f89-ce938adb'
     ENV['FIR_APP_TOKEN'] = '9611b6a99d280463039cbb64b7eb24ca'
+    ENV['FIRIM_TOKEN'] = '9611b6a99d280463039cbb64b7eb24ca'
     ENV["GIT_BRANCH"] = git_branch
     ENV['GETVERSIONNAME_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
     ENV['GETVERSIONCODE_GRADLE_FILE_PATH'] = 'HelloTalk/build.gradle'
@@ -26,14 +27,6 @@ platform :android do
       section_identifier: '[Unreleased]', # Specify what section to read
       excluded_markdown_elements: ['-', '###']  # Specify which markdown elements should be excluded
     )
-        send_e_mail(
-          stmp_server: "smtp.exmail.qq.com",
-          user_name: "issenn@hellotalk.com",
-          password: "Mn20104125106",
-          subject: "default",
-          message_body: "content",
-          recipients: "issenn@hellotalk.com"
-        )
     slack(
       message: "Hi! @channel \r\n A new build start",
       default_payloads: [:git_branch, :lane, :git_author]
@@ -97,12 +90,13 @@ platform :android do
           success: false,
           default_payloads: [:git_branch, :lane, :git_author, :test_result]
         )
-
-        mailgun(
-          to: "issenn@hellotalk.com",
-          success: true,
-          app_link: "https://fir.im/hellotalkandroid",
-          message: "#{ENV['CHANGELOG']}"
+        send_e_mail(
+          stmp_server: "smtp.exmail.qq.com",
+          user_name: "issenn@hellotalk.com",
+          password: "Mn20104125106",
+          subject: "default",
+          message_body: "content",
+          recipients: "issenn@hellotalk.com"
         )
         # raise ex
         puts ex

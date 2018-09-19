@@ -30,6 +30,14 @@ platform :android do
       message: "Hi! @channel \r\n A new build start",
       default_payloads: [:git_branch, :lane, :git_author]
     )
+    send_e_mail(
+      stmp_server: "smtp.exmail.qq.com",
+      user_name: "issenn@hellotalk.com",
+      password: "Mn20104125106",
+      subject: "default",
+      message_body: "content",
+      recipients: "issenn@hellotalk.com"
+    )
     gradle(
       task: "-v"
     )

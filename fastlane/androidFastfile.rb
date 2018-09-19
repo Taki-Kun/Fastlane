@@ -126,7 +126,7 @@ platform :android do
         app_changelog: change_log
       )
       slack(
-        message: "Hi! @issenn \r\n A new app upload success \r\nFlavor: #{flavor} #{ENV['CHANGELOG']}",
+        message: "Hi! @issenn \r\n A new app upload success \r\nFlavor: #{flavor} \r\n#{ENV['CHANGELOG']}",
         success: true,
         default_payloads: [:git_branch, :lane, :git_author, :test_result]
       )
@@ -135,7 +135,7 @@ platform :android do
         user_name: "update@hellotalk.com",
         password: "Hello123",
         subject: "default",
-        message_body: "Hi! @issenn \r\n A new app upload success \r\nFlavor: #{flavor} #{ENV['CHANGELOG']}",
+        message_body: "Hi! @issenn \r\n A new app upload success \r\nFlavor: #{flavor} \r\n#{ENV['CHANGELOG']}",
         recipients: ["issenn@hellotalk.com", "update@hellotalk.com"]
       )
       $upload_retry=0

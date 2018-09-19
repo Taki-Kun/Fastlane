@@ -103,26 +103,51 @@ platform :android do
     do_upload_firim
   end
 
+  $upload_retry=0
+
   lane :do_upload_firim do
+    slack(
+      message: "Hi! @issenn \r\n A new app uploading",
+      default_payloads: [:git_branch, :lane, :git_author]
+    )
     puts lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
     puts lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS]
     puts lane_context[SharedValues::GRADLE_FLAVOR]
     puts lane_context[SharedValues::GRADLE_BUILD_TYPE]
     puts get_version_name
     puts get_version_code
-    firim(
-      apk: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
-      app_version: get_version_name,
-      app_build_version: get_version_code,
-      app_is_show_plaza: true,
-      # app_is_opened: true,
-      app_changelog: ENV['CHANGELOG']
-    )
+    begin
+      flavor = lane_context[SharedValues::GRADLE_FLAVOR] || /([^\/-]*)(?=-[^\/-]*\.apk$)/.match(apk)
+      change_log = "[#{flavor}]+[#{ENV['GIT_BRANCH']}]\r\n---\r\n" + ENV['CHANGELOG']
+      firim(
+        apk: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
+        app_version: get_version_name,
+        app_build_version: get_version_code,
+        app_is_show_plaza: true,
+        # app_is_opened: true,
+        app_changelog: change_log
+      )
+      slack(
+        message: "Hi! @issenn \r\n A new app upload success \r\n #{ENV['CHANGELOG']}",
+        success: true,
+        default_payloads: [:git_branch, :lane, :git_author, :test_result]
+      )
+    rescue => ex
+      $upload_retry += 1
+      if $upload_retry < 3
+        do_upload_firim
+      else
+        slack(
+          message: "Hi! @issenn \r\n A new app upload failed",
+          success: false,
+          default_payloads: [:git_branch, :lane, :git_author, :test_result]
+        )
+        # raise ex
+        puts ex
+      end
+    end
   end
-
 =begin
-  $upload_retry=0
-
   lane :do_upload do
     slack(
       message: "Hi! @issenn \r\n A new app uploading",

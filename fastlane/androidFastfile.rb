@@ -63,9 +63,9 @@ platform :android do
     apk_paths = [lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], all_apk_paths].flatten.compact
     apk_paths = [lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]] unless (apk_paths = all_apk_paths)
     apk_paths.each do | apk |
-      # flavor = lane_context[SharedValues::GRADLE_FLAVOR] || /([^\/-]*)(?=-[^\/-]*\.apk$)/.match(apk)
-      # change_log = "[#{flavor}]+[#{ENV['GIT_BRANCH']}]\r\n---\r\n" + params[:change_log]
-      # puts "Uploading APK to fir: " + apk
+      flavor = lane_context[SharedValues::GRADLE_FLAVOR] || /([^\/-]*)(?=-[^\/-]*\.apk$)/.match(apk)
+      change_log = "[#{flavor}]+[#{ENV['GIT_BRANCH']}]\r\n---\r\n" + ENV['CHANGELOG']
+      puts "Uploading APK to fir: " + apk
       # sh "sudo /usr/local/bin/fir p '#{apk}' -T '#{params[:app_key]}' -c '#{change_log}'"
       firim(
         apk: apk,
@@ -113,7 +113,10 @@ platform :android do
     firim(
       apk: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
       app_version: get_version_name,
-      app_build_version: get_version_code
+      app_build_version: get_version_code,
+      app_is_show_plaza: true,
+      # app_is_opened: true,
+      app_changelog: ENV['CHANGELOG']
     )
   end
 

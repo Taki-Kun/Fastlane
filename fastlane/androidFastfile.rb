@@ -56,13 +56,13 @@ platform :android do
     puts lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS]
     puts lane_context[SharedValues::GRADLE_FLAVOR]
     puts lane_context[SharedValues::GRADLE_BUILD_TYPE]
-    do_upload
+    to_firim
 
   end
 
   lane :to_firim do
     firim
-  end
+  done
 
   $upload_retry=0
 

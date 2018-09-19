@@ -138,6 +138,7 @@ platform :android do
         message_body: "Hi! @issenn \r\n A new app upload success \r\nFlavor: #{flavor} #{ENV['CHANGELOG']}",
         recipients: ["issenn@hellotalk.com", "update@hellotalk.com"]
       )
+      $upload_retry=0
     rescue => ex
       $upload_retry += 1
       if $upload_retry < 3

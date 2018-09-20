@@ -1,0 +1,8 @@
+###################### More Options ######################
+# If you want to have even more control, check out the documentation
+# https://github.com/fastlane/fastlane/blob/master/deliver/Deliverfile.md
+
+firim_api_token "9611b6a99d280463039cbb64b7eb24ca" # The fir.im api token
+platform "android"
+app_identifier "com.hellotalk"
+app_name "HelloTalk"

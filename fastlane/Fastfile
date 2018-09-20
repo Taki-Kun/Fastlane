@@ -1,0 +1,1 @@
+import_from_git(url: 'git@github.com:Taki-Kun/Fastlane.git', path: 'fastlane/androidFastfile.rb')
